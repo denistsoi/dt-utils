@@ -150,4 +150,70 @@ describe('$', function() {
     });
   });
 
+
+
+  describe('#events', function(){
+    it('should add a listener to an event', function(){
+      this.handler = function(){
+        console.log('Hello');
+      };
+      this.$.events.on('Hello', this.handler, this);
+      this.$.events._listeners.should.be.an('object');
+      this.$.events._listeners['Hello'].should.be.an('array');
+      this.$.events._listeners['Hello'].should.have.length(1);
+      this.$.events._listeners['Hello'][0].callback.should.be.a('function');
+      this.$.events._listeners['Hello'][0].ctx.should.be.an('object');
+    });
+
+    it('should trigger an event', function(done){
+      this.handler2 = function(){
+        done();
+      };
+      this.$.events.on('Goodbye', this.handler2, this);
+      this.$.events.emit('Goodbye');
+    });
+
+    it('should trigger an event with arguments', function(done){
+      this.$.events.on('Greeting', function(greeting){
+        greeting.should.equal('Good Afternoon');
+        done();
+      }, this);
+      this.$.events.emit('Greeting', 'Good Afternoon');
+    });
+
+    it('should execute callback in context', function(done){
+      this.$.events.on('Hail Taxi', function(){
+        this.Hail.should.equal(true);
+        done();
+      }, {Hail: true});
+      this.$.events.emit('Hail Taxi');
+    });
+
+    it('should remove listener by callback and context', function() {
+      this.$.events.off('Hello', this.handler, this);
+      this.$.events._listeners['Hello'].should.have.length(0);
+    });
+
+    it('should remove listener by callback', function() {
+      this.$.events.off('Goodbye', this.handler2);
+      this.$.events._listeners['Goodbye'].should.have.length(0);
+    });
+
+    it('should remove listeners by name', function() {
+      this.$.events.off('Greeting');
+      this.$.events._listeners['Greeting'].should.have.length(0);
+    });
+    it('should remove all listeners', function() {
+      this.$.events.off();
+      Object.keys(this.$.events._listeners).should.have.length(0);
+    });    
+  })
+
+  describe('#extend', function(){
+    it('should extend an object', function(){
+      var obj = { z: 10 };
+      this.$.extend(obj, {a: 1, b: 2}, {a: 6, c: 9});
+      obj.should.deep.equal({a: 6, b: 2, c: 9, z: 10});
+    });
+  });
 });

@@ -76,6 +76,36 @@ This should concurrently call a function for every element of the array in paral
       callback(item);
     });
 
+#### #events
+
+This is an object with functions (on, off and emit) that respectively create an event, remove an event and emit an event.
+
+##### Example:
+    
+    $.event.on('Hello', function(){ 
+      console.log('Hello')        // create an event called 'Hello' which console.logs 'Hello'
+      }, this);  
+    $.event.emit('Hello');        // emit the 'Hello' event
+    $.event.off('Hello');         // remove the 'Hello' event
+    
+#### #extend
+
+This should extend an object based on the arguments
+
+##### Example:
+    function Person() {}
+
+    $.extend(Person.prototype, $.events);
+    
+    var person = new Person();
+
+    person.on('greeting', function(greeting) {
+      console.log(greeting);
+      person.off('greeting');
+    });
+
+    person.emit('greeting', 'Hi!');
+
 ### License
 MIT
 

@@ -1,7 +1,7 @@
 {
   "name": "dt-utils",
-  "version": "0.0.2",
-  "description": "utility functions for arrays and objects",
+  "version": "0.0.3",
+  "description": "utility functions for arrays, objects and events",
   "main": "index.js",
   "scripts": {
     "test": "mocha -b -t 30000 -w -R spec test.js"

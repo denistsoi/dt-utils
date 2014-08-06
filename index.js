@@ -175,4 +175,60 @@ $.concurrentMap = function(arr, concurrency, fn){
   }}
 }
 
+
+$.events = {
+  on: function(name, callback, ctx){
+    this._listeners = this._listeners || {};
+    this._listeners[name] = this._listeners[name] || [];
+    this._listeners[name].push({callback: callback, ctx: ctx});
+  },
+  off: function(name, callback, ctx){
+    this._listeners = this._listeners || {};
+    if (name && callback && ctx) {
+      var listeners = this._listeners[name];
+      if (listeners){
+        this._listeners[name] = $.filter(listeners, function(listener){
+          return listener.callback !== callback || listener.ctx !== ctx;
+        });
+      }
+    } else if (name && callback) {
+      var listeners = this._listeners[name];
+      if (listeners){
+        this._listeners[name] = $.filter(listeners, function(listener){
+          return listener.callback !== callback;
+        });
+      }
+    } else if (name) {
+      this._listeners[name] = [];
+    } else {
+      this._listeners = {};
+    }
+  },
+  emit: function(){
+    var args  = Array.prototype.slice.call(arguments);
+    var name = args.shift();
+    this._listeners = this._listeners || {};
+    var listeners = this._listeners[name];
+    if (listeners) {
+      $.each(listeners, function(listener){
+        listener.callback.apply(listener.ctx || this, args);
+      });
+    }
+  }
+}
+
+$.extend = function(){
+  var args  = Array.prototype.slice.call(arguments);
+  var obj = args.shift();
+  var parent = args.shift();
+  if (parent){
+    $.each(parent, function(value, key){
+      obj[key] = value;
+    });
+    args.unshift(obj);
+    return $.extend.apply(this, args);
+  }
+  return obj;
+}
+
 exports = module.exports = $;
