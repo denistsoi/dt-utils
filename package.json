@@ -1,0 +1,18 @@
+{
+  "name": "dt-utils",
+  "version": "0.0.2",
+  "description": "utility functions for arrays and objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -b -t 30000 -w -R spec test.js"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "Denis Tsoi",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.3"
+  }
+}
