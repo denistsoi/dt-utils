@@ -257,8 +257,12 @@ $.unique = function(arr, fn) {
   var out = [];
   if (Array.isArray(arr)) {
     for (var i=0; i < arr.length; i ++) {
-      if (out.indexOf(arr[i]) === -1) {
-        out.push(arr[i]);
+      if (typeof arr[i] === "object") {
+             
+      } else {
+        if (out.indexOf(arr[i]) === -1) {
+          out.push(arr[i]);
+        }
       }
     }
     return out;

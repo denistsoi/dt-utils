@@ -223,5 +223,16 @@ describe('$', function() {
       var out = this.$.unique(arr);
       out.should.deep.equal(['1', '2','3','4']);
     });
+    it('should handle an array of numbers', function() {
+      var arr = [1, 2, 2, 3, 5, 4];
+      var out = this.$.unique(arr);
+      out.should.deep.equal([1,2,3,5,4]);
+    });
+    it('should return an array of objects', function() {
+      var arr = [{a: 1}, {b: 2}, {c: 3}];
+      var out = this.$.unique(arr);
+      out.should.deep.equal([{a: 1}, {b: 2}, {c: 3}]);
+    });
+
   })
 });

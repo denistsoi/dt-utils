@@ -106,6 +106,17 @@ This should extend an object based on the arguments
 
     person.emit('greeting', 'Hi!');
 
+#### #unique
+
+This should return a duplicate-free array
+    
+    $.unique([1,2,3,2,4]); // returns [1,2,3,4]
+
+#### TODO: 
+  - [ ] deep equal array of objects
+  - [ ] # merge
+
+
 ### License
 MIT
 
