@@ -261,7 +261,6 @@ $.unique = function(arr, fn) {
         out.push(arr[i]);
       }
     }
-    console.log(out);
     return out;
   } 
 }
