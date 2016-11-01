@@ -216,4 +216,12 @@ describe('$', function() {
       obj.should.deep.equal({a: 6, b: 2, c: 9, z: 10});
     });
   });
+
+  describe('#unique', function() {
+    it('should return an array of all unique values in a given array', function() {
+      var arr = ['1', '2', '3', '2', '4'];
+      var out = this.$.unique(arr);
+      out.should.deep.equal(['1', '2','3','4']);
+    });
+  })
 });

@@ -18,7 +18,6 @@ $.each = function(arr, fn) {
 $.map = function(arr, fn){
   var out = []
   
-
   if (Array.isArray(arr)) {
     for(var i=0; i< arr.length; i++){
       out.push(fn(arr[i],i));
@@ -239,7 +238,7 @@ $.extend = function(){
 // window.addEventListener("optimizedResize", function() {
 //    // custom event
 // });
-$.throttle = function(type. name, obj){
+$.throttle = function(type, name, obj){
   obj = obj || window;
   var running = false;
   var func = function() {
@@ -251,6 +250,20 @@ $.throttle = function(type. name, obj){
     });
   };
   obj.addEventListener(type, func);
+}
+
+
+$.unique = function(arr, fn) {
+  var out = [];
+  if (Array.isArray(arr)) {
+    for (var i=0; i < arr.length; i ++) {
+      if (out.indexOf(arr[i]) === -1) {
+        out.push(arr[i]);
+      }
+    }
+    console.log(out);
+    return out;
+  } 
 }
 
 exports = module.exports = $;
